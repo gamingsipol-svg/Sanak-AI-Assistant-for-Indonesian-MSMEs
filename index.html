@@ -281,7 +281,7 @@
   /* === ARCHITECTURE SECTION === */
   .arch-section { background: var(--bg); padding: 5rem 0 6rem; }
   .arch-svg-wrap { margin-top: 3rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 2rem; overflow-x: auto; max-width: 100%; }
-  .arch-svg { display: block; width: 100%; max-width: 1000px; height: auto; margin: 0 auto; min-width: 720px; }
+  .arch-svg { display: block; width: 100%; max-width: 1200px; height: auto; margin: 0 auto; min-width: 720px; }
   .arch-svg .arch-node-bg { fill: var(--bg-warm); stroke: var(--border); stroke-width: 1.5; }
   .arch-svg .arch-node-bg.primary { fill: var(--accent); stroke: var(--accent); }
   .arch-svg .arch-node-bg.dark { fill: var(--ink); stroke: var(--ink); }
@@ -797,7 +797,7 @@
       <p class="section-lead" data-i18n="arch.lead">How Sanak handles a single voice message — across channel, edge runtime, agent core, tools, memory, and back to voice. Average end-to-end latency under 3 seconds.</p>
 
       <div class="arch-svg-wrap" role="img" aria-label="Sanak system architecture diagram">
-        <svg class="arch-svg" viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg">
+        <svg class="arch-svg" viewBox="0 0 1240 480" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <marker id="archArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
               <path d="M 0 0 L 10 5 L 0 10 z" fill="#4A3F30"/>
@@ -809,73 +809,76 @@
 
           <!-- User input -->
           <g transform="translate(20, 200)">
-            <rect class="arch-node-bg primary" width="140" height="80" rx="10"/>
-            <text class="arch-label on-dark" x="70" y="35" text-anchor="middle" data-i18n="arch.svg.user">User input</text>
-            <text class="arch-sub on-dark" x="70" y="55" text-anchor="middle" data-i18n="arch.svg.user.tags">voice · photo · document</text>
+            <rect class="arch-node-bg primary" width="150" height="84" rx="10"/>
+            <text class="arch-label on-dark" x="75" y="36" text-anchor="middle" data-i18n="arch.svg.user">User input</text>
+            <text class="arch-sub on-dark" x="75" y="58" text-anchor="middle" data-i18n="arch.svg.user.tags">voice · photo · document</text>
           </g>
 
           <!-- Channel -->
-          <g transform="translate(190, 200)">
-            <rect class="arch-node-bg" width="140" height="80" rx="10"/>
-            <text class="arch-label" x="70" y="35" text-anchor="middle" data-i18n="arch.svg.channel">Channel layer</text>
-            <text class="arch-sub" x="70" y="55" text-anchor="middle" data-i18n="arch.svg.channel.sub">WhatsApp · Telegram</text>
+          <g transform="translate(210, 200)">
+            <rect class="arch-node-bg" width="150" height="84" rx="10"/>
+            <text class="arch-label" x="75" y="36" text-anchor="middle" data-i18n="arch.svg.channel">Channel layer</text>
+            <text class="arch-sub" x="75" y="58" text-anchor="middle" data-i18n="arch.svg.channel.sub">WhatsApp · Telegram</text>
           </g>
 
-          <!-- Edge -->
-          <g transform="translate(360, 200)">
-            <rect class="arch-node-bg" width="160" height="80" rx="10"/>
-            <text class="arch-label" x="80" y="32" text-anchor="middle" data-i18n="arch.svg.edge">Edge runtime</text>
-            <text class="arch-sub" x="80" y="52" text-anchor="middle" data-i18n="arch.svg.edge.sub">cache · retry queue · weak-signal handling</text>
+          <!-- Edge runtime -->
+          <g transform="translate(400, 200)">
+            <rect class="arch-node-bg" width="180" height="84" rx="10"/>
+            <text class="arch-label" x="90" y="32" text-anchor="middle" data-i18n="arch.svg.edge">Edge runtime</text>
+            <text class="arch-sub" x="90" y="52" text-anchor="middle" data-i18n="arch.svg.edge.sub1">cache · retry queue</text>
+            <text class="arch-sub" x="90" y="68" text-anchor="middle" data-i18n="arch.svg.edge.sub2">weak-signal handling</text>
           </g>
 
           <!-- Agent core -->
-          <g transform="translate(550, 200)">
-            <rect class="arch-node-bg dark" width="160" height="80" rx="10"/>
-            <text class="arch-label on-dark" x="80" y="35" text-anchor="middle" data-i18n="arch.svg.agent">Agent core</text>
-            <text class="arch-sub on-dark" x="80" y="55" text-anchor="middle" data-i18n="arch.svg.agent.sub">planner · orchestrator · recovery</text>
+          <g transform="translate(620, 200)">
+            <rect class="arch-node-bg dark" width="180" height="84" rx="10"/>
+            <text class="arch-label on-dark" x="90" y="32" text-anchor="middle" data-i18n="arch.svg.agent">Agent core</text>
+            <text class="arch-sub on-dark" x="90" y="52" text-anchor="middle" data-i18n="arch.svg.agent.sub1">planner · orchestrator</text>
+            <text class="arch-sub on-dark" x="90" y="68" text-anchor="middle" data-i18n="arch.svg.agent.sub2">error recovery</text>
           </g>
 
           <!-- Output -->
-          <g transform="translate(840, 200)">
-            <rect class="arch-node-bg primary" width="140" height="80" rx="10"/>
-            <text class="arch-label on-dark" x="70" y="35" text-anchor="middle" data-i18n="arch.svg.output">Response</text>
-            <text class="arch-sub on-dark" x="70" y="55" text-anchor="middle" data-i18n="arch.svg.output.sub">TTS · text · structured</text>
+          <g transform="translate(1070, 200)">
+            <rect class="arch-node-bg primary" width="150" height="84" rx="10"/>
+            <text class="arch-label on-dark" x="75" y="36" text-anchor="middle" data-i18n="arch.svg.output">Response</text>
+            <text class="arch-sub on-dark" x="75" y="58" text-anchor="middle" data-i18n="arch.svg.output.sub">TTS · text · structured</text>
           </g>
 
           <!-- Tools (top branch from Agent) -->
-          <g transform="translate(440, 60)">
-            <rect class="arch-node-bg" width="160" height="70" rx="10"/>
-            <text class="arch-label" x="80" y="30" text-anchor="middle" data-i18n="arch.svg.tools">Tool registry</text>
-            <text class="arch-sub" x="80" y="50" text-anchor="middle" data-i18n="arch.svg.tools.sub">8 sandboxed tools</text>
-          </g>
-
-          <!-- Memory (bottom branch from Agent) -->
-          <g transform="translate(440, 360)">
-            <rect class="arch-node-bg" width="160" height="70" rx="10"/>
-            <text class="arch-label" x="80" y="30" text-anchor="middle" data-i18n="arch.svg.memory">Memory layer</text>
-            <text class="arch-sub" x="80" y="50" text-anchor="middle" data-i18n="arch.svg.memory.sub">3-tier · E2E encrypted</text>
+          <g transform="translate(490, 60)">
+            <rect class="arch-node-bg" width="170" height="74" rx="10"/>
+            <text class="arch-label" x="85" y="30" text-anchor="middle" data-i18n="arch.svg.tools">Tool registry</text>
+            <text class="arch-sub" x="85" y="52" text-anchor="middle" data-i18n="arch.svg.tools.sub">8 sandboxed tools</text>
           </g>
 
           <!-- Models (top-right branch from Agent) -->
-          <g transform="translate(660, 60)">
-            <rect class="arch-node-bg" width="160" height="70" rx="10"/>
-            <text class="arch-label" x="80" y="30" text-anchor="middle" data-i18n="arch.svg.models">Model tier</text>
-            <text class="arch-sub" x="80" y="50" text-anchor="middle" data-i18n="arch.svg.models.sub">small · flagship · vision</text>
+          <g transform="translate(720, 60)">
+            <rect class="arch-node-bg" width="170" height="74" rx="10"/>
+            <text class="arch-label" x="85" y="30" text-anchor="middle" data-i18n="arch.svg.models">Model tier</text>
+            <text class="arch-sub" x="85" y="52" text-anchor="middle" data-i18n="arch.svg.models.sub">small · flagship · vision</text>
+          </g>
+
+          <!-- Memory (bottom branch from Agent) -->
+          <g transform="translate(605, 360)">
+            <rect class="arch-node-bg" width="170" height="74" rx="10"/>
+            <text class="arch-label" x="85" y="30" text-anchor="middle" data-i18n="arch.svg.memory">Memory layer</text>
+            <text class="arch-sub" x="85" y="52" text-anchor="middle" data-i18n="arch.svg.memory.sub">3-tier · E2E encrypted</text>
           </g>
 
           <!-- Forward arrows (left to right) -->
-          <path class="arch-arrow" d="M 160 240 L 188 240"/>
-          <path class="arch-arrow" d="M 330 240 L 358 240"/>
-          <path class="arch-arrow" d="M 520 240 L 548 240"/>
-          <path class="arch-arrow" d="M 710 240 L 838 240"/>
+          <path class="arch-arrow" d="M 170 242 L 208 242"/>
+          <path class="arch-arrow" d="M 360 242 L 398 242"/>
+          <path class="arch-arrow" d="M 580 242 L 618 242"/>
+          <path class="arch-arrow" d="M 800 242 L 1068 242"/>
 
-          <!-- Branches from Agent core to tools/memory/models -->
-          <path class="arch-arrow" d="M 595 200 Q 595 170 530 130"/>
-          <path class="arch-arrow" d="M 660 200 Q 660 170 730 130"/>
-          <path class="arch-arrow" d="M 630 280 Q 630 320 530 360"/>
+          <!-- Branches from Agent core upward to tools and models -->
+          <path class="arch-arrow" d="M 670 200 Q 670 170 580 134"/>
+          <path class="arch-arrow" d="M 745 200 Q 745 170 800 134"/>
+          <!-- Branch downward to memory -->
+          <path class="arch-arrow" d="M 695 284 Q 695 320 695 356"/>
 
           <!-- Return path (memory back to agent) -->
-          <path class="arch-arrow-back" d="M 600 360 Q 700 340 690 280"/>
+          <path class="arch-arrow-back" d="M 775 396 Q 850 360 800 290"/>
         </svg>
       </div>
 
