@@ -178,3 +178,9 @@ The Sanak product, brand, and broader system are owned by the project team. Cont
 ## Contact
 
 If you are an MSME owner, accessibility advocate, NGO, government partner, or grant program interested in the closed pilot or general collaboration — open an issue or reach out via the landing page.
+
+---
+
+## Build provenance
+
+Every file in this repository was authored end-to-end by orchestrating **Claude** through a custom agent runtime executing autonomous tool calls (file edits, headless browser verification, regex audits, GitHub API deployment). See [`BUILD-PROCESS.md`](BUILD-PROCESS.md) for the full agent-driven workflow, verification methodology, and honest scope statement.
