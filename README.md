@@ -137,7 +137,7 @@ This repository is the **public landing page** for the project. The agent runtim
 
 ```bash
 git clone https://github.com/gamingsipol-svg/Sanak-AI-Assistant-for-Indonesian-MSMEs.git
-cd Sanak-AI-Assistant-for-Indonesian-MSMEs/landing
+cd Sanak-AI-Assistant-for-Indonesian-MSMEs
 python3 -m http.server 8000
 # Open http://localhost:8000
 ```
@@ -147,12 +147,14 @@ python3 -m http.server 8000
 ## Project structure
 
 ```
-landing/
+.
 ├── index.html              # Main landing page (12 sections)
 ├── i18n.js                 # Base translations: hero, scale, problem, accessibility, how, use cases, stack, roadmap, footer
 ├── i18n-extra.js           # Translations for: agent, multimodal, memory, demo
 ├── i18n-extra-2.js         # Translations for: pillars, architecture, safety
 ├── demo.js                 # Interactive demo runtime — 4 scenarios × 3 languages
+├── README.md               # This file
+├── LICENSE                 # MIT
 └── assets/
     ├── logo.svg            # Brand mark — interlocking circles (kin/connection)
     ├── logo-white.svg      # Inverse variant
