@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Sanak logo — white variant for dark backgrounds -->
+  <circle cx="24" cy="32" r="14" stroke="#FBF7F0" stroke-width="3.5" fill="none"/>
+  <circle cx="40" cy="32" r="14" stroke="#FBF7F0" stroke-width="3.5" fill="none" opacity="0.85"/>
+  <circle cx="32" cy="32" r="2.5" fill="#E8A87C"/>
+</svg>

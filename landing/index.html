@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Sanak — accessibility-first AI assistant for 60 million Indonesian MSMEs. Voice-first interface, bilingual, affordable.">
+
+<!-- Favicons -->
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#FAF6EC">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sanak — AI Assistant for Indonesian MSMEs">
+<meta property="og:description" content="Accessibility-first AI assistant for 60 million Indonesian MSMEs. Voice-first, bilingual, affordable.">
+<meta property="og:image" content="assets/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="id_ID">
+<meta property="og:locale:alternate" content="zh_CN">
+
+<!-- Twitter card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sanak — AI Assistant for Indonesian MSMEs">
+<meta name="twitter:description" content="Accessibility-first AI assistant for 60 million Indonesian MSMEs.">
+<meta name="twitter:image" content="assets/og-image.png">
+<title>Sanak — AI Assistant for Indonesian MSMEs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FBF7F0;
+    --bg-warm: #F5EDDF;
+    --ink: #1F1A14;
+    --ink-soft: #4A3F30;
+    --muted: #7A6B55;
+    --border: #E5D9C2;
+    --accent: #B8421A;
+    --accent-soft: #E8A87C;
+    --success: #2D5F3F;
+    --surface: #FFFFFF;
+    --shadow: 0 1px 2px rgba(31,26,20,0.04), 0 8px 24px rgba(31,26,20,0.06);
+    --r-sm: 6px;
+    --r-md: 12px;
+    --r-lg: 20px;
+    --font-display: "Fraunces", Georgia, serif;
+    --font-body: "Inter", "Noto Sans SC", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14110D;
+      --bg-warm: #1C1812;
+      --ink: #F5EDDF;
+      --ink-soft: #D4C7AE;
+      --muted: #9C8F7A;
+      --border: #2A241B;
+      --accent: #E8704A;
+      --accent-soft: #B8421A;
+      --success: #6BB888;
+      --surface: #1C1812;
+      --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.5);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+  body { margin: 0; font-family: var(--font-body); font-size: 18px; line-height: 1.6; color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; text-wrap: pretty; overflow-x: hidden; }
+  html { overflow-x: hidden; max-width: 100%; }
+  /* prevent grid/flex children from overflowing parents (esp. <pre> blocks) */
+  main, section, .container, .agent-grid > *, .mem-grid > *, .scale-grid > *, .problem-grid > *, .how-grid > *, .uc-item, .mm-grid > *, .tech-grid > *, .foot-grid > * { min-width: 0; }
+  html[lang="zh-CN"] body { font-family: "Noto Sans SC", "Inter", system-ui, sans-serif; }
+  .skip-link { position: absolute; left: -9999px; top: 1rem; z-index: 999; padding: 0.75rem 1.25rem; background: var(--accent); color: white; border-radius: var(--r-sm); text-decoration: none; font-weight: 600; }
+  .skip-link:focus { left: 1rem; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+
+  header { padding: 1.25rem 0; border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px); }
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+  .brand { display: flex; align-items: center; gap: 0.75rem; font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; color: var(--ink); text-decoration: none; }
+  .brand-mark { width: 36px; height: 36px; flex-shrink: 0; display: grid; place-items: center; }
+  .brand-mark svg { width: 36px; height: 36px; display: block; }
+  .nav-right { display: flex; align-items: center; gap: 2rem; }
+  .nav-links { display: flex; gap: 1.75rem; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { color: var(--ink-soft); text-decoration: none; font-weight: 500; padding: 0.5rem 0; min-height: 44px; display: inline-flex; align-items: center; font-size: 0.95rem; }
+  .nav-links a:hover, .nav-links a:focus { color: var(--accent); }
+  .lang-switch { display: inline-flex; align-items: center; gap: 0; padding: 3px; background: var(--bg-warm); border: 1px solid var(--border); border-radius: 999px; }
+  .lang-btn { background: transparent; border: 0; padding: 0.45rem 0.85rem; min-height: 36px; min-width: 44px; border-radius: 999px; font-family: inherit; font-size: 0.85rem; font-weight: 600; color: var(--muted); cursor: pointer; transition: background 0.15s ease, color 0.15s ease; }
+  .lang-btn:hover { color: var(--ink); }
+  .lang-btn.active { background: var(--accent); color: white; }
+  @media (max-width: 900px) { .nav-links { display: none; } }
+
+  .hero { padding: 5rem 0 4rem; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: var(--bg-warm); border: 1px solid var(--border); border-radius: 999px; font-size: 0.875rem; font-weight: 500; color: var(--ink-soft); margin-bottom: 1.5rem; }
+  .hero-eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 4px rgba(45,95,63,0.2); }
+  .hero h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.5rem, 5vw, 4.25rem); line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 1.5rem; color: var(--ink); max-width: 900px; }
+  .hero h1 em { font-style: italic; color: var(--accent); font-weight: 500; }
+  .hero-lead { font-size: 1.25rem; line-height: 1.55; color: var(--ink-soft); max-width: 680px; margin: 0 0 2.5rem; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.875rem 1.75rem; min-height: 48px; border-radius: var(--r-sm); font-weight: 600; font-size: 1rem; text-decoration: none; border: 2px solid transparent; cursor: pointer; transition: transform 0.15s ease; font-family: inherit; }
+  .btn-primary { background: var(--accent); color: white; }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-secondary { background: transparent; color: var(--ink); border-color: var(--border); }
+  .btn-secondary:hover { border-color: var(--ink); }
+
+  .scale-strip { background: var(--bg-warm); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 3rem 0; }
+  .scale-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+  .scale-stat { border-left: 3px solid var(--accent); padding: 0.5rem 0 0.5rem 1.5rem; }
+  .scale-stat-num { font-family: var(--font-display); font-weight: 600; font-size: 2.5rem; line-height: 1; color: var(--ink); margin-bottom: 0.5rem; }
+  .scale-stat-label { font-size: 0.95rem; color: var(--muted); line-height: 1.4; }
+
+  section { padding: 5rem 0; }
+  .section-eyebrow { font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 1rem; }
+  .section-title { font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 1.25rem; color: var(--ink); max-width: 720px; }
+  .section-lead { font-size: 1.125rem; line-height: 1.6; color: var(--ink-soft); max-width: 640px; margin: 0 0 3rem; }
+
+  .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+  .problem-card { padding: 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); }
+  .problem-card h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; margin: 0 0 1rem; color: var(--ink); }
+  .problem-card p { margin: 0; color: var(--ink-soft); line-height: 1.6; }
+  .problem-card-num { font-family: var(--font-display); font-weight: 700; font-size: 0.875rem; color: var(--accent); margin-bottom: 0.75rem; letter-spacing: 0.05em; }
+
+  .access-section { background: var(--bg-warm); border-radius: var(--r-lg); padding: 4rem 3rem; margin: 3rem 0; }
+  .access-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: start; }
+  @media (max-width: 900px) { .access-grid { grid-template-columns: 1fr; gap: 2rem; } .access-section { padding: 2.5rem 1.75rem; } }
+  .access-feat { display: flex; gap: 1.25rem; padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
+  .access-feat:last-child { border-bottom: none; }
+  .access-feat-icon { flex-shrink: 0; width: 44px; height: 44px; border-radius: var(--r-sm); background: var(--accent); color: white; display: grid; place-items: center; font-weight: 700; font-size: 1.1rem; }
+  .access-feat h4 { font-family: var(--font-display); font-weight: 500; font-size: 1.25rem; margin: 0 0 0.5rem; color: var(--ink); }
+  .access-feat p { margin: 0; color: var(--ink-soft); font-size: 0.95rem; line-height: 1.5; }
+
+  .how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; counter-reset: step; }
+  .how-step { counter-increment: step; padding: 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); position: relative; }
+  .how-step::before { content: counter(step, decimal-leading-zero); position: absolute; top: 1.5rem; right: 1.5rem; font-family: var(--font-display); font-weight: 700; font-size: 2.5rem; color: var(--accent-soft); opacity: 0.5; line-height: 1; }
+  .how-step h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.4rem; margin: 0 0 0.75rem; padding-right: 3rem; color: var(--ink); }
+  .how-step p { margin: 0; color: var(--ink-soft); line-height: 1.6; }
+
+  .uc-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; }
+  .uc-item { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.5rem; padding: 1.5rem 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); transition: border-color 0.2s ease; }
+  .uc-item:hover { border-color: var(--accent-soft); }
+  .uc-tag { background: var(--bg-warm); color: var(--accent); padding: 0.4rem 0.875rem; border-radius: 999px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.03em; }
+  .uc-text strong { color: var(--ink); font-weight: 600; display: block; margin-bottom: 0.25rem; }
+  .uc-text span { color: var(--muted); font-size: 0.95rem; }
+  .uc-time { font-family: var(--font-display); font-style: italic; color: var(--muted); font-size: 0.95rem; }
+  @media (max-width: 700px) { .uc-item { grid-template-columns: 1fr; gap: 0.5rem; } .uc-time { display: none; } }
+
+  .tech-section { background: var(--bg-warm); }
+  .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
+  .tech-card { padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); }
+  .tech-label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.75rem; }
+  .tech-name { font-family: var(--font-display); font-weight: 500; font-size: 1.25rem; color: var(--ink); margin-bottom: 0.5rem; }
+  .tech-desc { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.5; }
+
+  .road-track { border-left: 2px solid var(--border); padding-left: 2rem; margin-left: 0.5rem; }
+  .road-item { position: relative; padding-bottom: 2.5rem; }
+  .road-item::before { content: ""; position: absolute; left: -2.6rem; top: 0.4rem; width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+  .road-item.active::before { background: var(--accent); box-shadow: 0 0 0 4px rgba(184,66,26,0.2); }
+  .road-item.future::before { border-color: var(--border); }
+  .road-quarter { font-family: var(--font-display); font-weight: 600; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 0.5rem; }
+  .road-item.future .road-quarter { color: var(--muted); }
+  .road-item h4 { font-family: var(--font-display); font-weight: 500; font-size: 1.4rem; margin: 0 0 0.5rem; color: var(--ink); }
+  .road-item p { margin: 0; color: var(--ink-soft); line-height: 1.6; }
+
+  .cta-final { background: var(--ink); color: var(--bg); border-radius: var(--r-lg); padding: 5rem 3rem; text-align: center; margin: 3rem 0; }
+  .cta-final h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; margin: 0 0 1rem; color: var(--bg); }
+  .cta-final h2 em { font-style: italic; color: var(--accent-soft); }
+  .cta-final p { font-size: 1.125rem; color: var(--bg-warm); max-width: 540px; margin: 0 auto 2.5rem; line-height: 1.6; }
+  .cta-final .btn-primary { background: var(--accent); }
+  .cta-final .btn-secondary { background: transparent; color: var(--bg); border-color: rgba(245,237,223,0.3); }
+  .cta-final .btn-secondary:hover { border-color: var(--bg); }
+
+  footer { border-top: 1px solid var(--border); padding: 3rem 0 2rem; color: var(--muted); font-size: 0.95rem; }
+  .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  @media (max-width: 768px) { .foot-grid { grid-template-columns: 1fr; gap: 2rem; } }
+  .foot-brand p { max-width: 360px; line-height: 1.5; margin: 1rem 0 0; }
+  .foot-col h5 { font-family: var(--font-body); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink); margin: 0 0 1rem; }
+  .foot-col ul { list-style: none; padding: 0; margin: 0; }
+  .foot-col li { margin-bottom: 0.5rem; }
+  .foot-col a { color: var(--muted); text-decoration: none; padding: 0.25rem 0; display: inline-block; min-height: 32px; }
+  .foot-col a:hover { color: var(--accent); }
+  .foot-bot { border-top: 1px solid var(--border); padding-top: 2rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .foot-lang { display: inline-flex; gap: 0.5rem; align-items: center; }
+  .lang-tag { padding: 0.25rem 0.75rem; background: var(--bg-warm); border-radius: 4px; font-size: 0.85rem; }
+
+  /* ============ AGENT / TOOLS ============ */
+  .agent-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  @media (max-width: 900px) { .agent-grid { grid-template-columns: 1fr; gap: 2rem; } }
+  .tool-list { display: grid; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+  .tool-row { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start; padding: 1rem 1.25rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); }
+  .tool-name { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.85rem; font-weight: 600; color: var(--accent); padding: 0.35rem 0.65rem; background: var(--bg-warm); border-radius: var(--r-sm); white-space: nowrap; }
+  .tool-desc { color: var(--ink-soft); font-size: 0.95rem; line-height: 1.5; }
+  .trace { background: var(--ink); color: var(--bg); border-radius: var(--r-md); padding: 1.5rem; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.82rem; line-height: 1.65; overflow-x: auto; max-width: 100%; -webkit-overflow-scrolling: touch; }
+  .trace-line { white-space: pre; }
+  .trace-user { color: #E8A87C; font-weight: 600; }
+  .trace-thought { color: #9C8F7A; font-style: italic; }
+  .trace-tool { color: #6BB888; }
+  .trace-arrow { color: #9C8F7A; }
+  .trace-output { color: #F5EDDF; }
+  .trace-final { color: white; font-weight: 600; }
+
+  /* ============ MULTIMODAL ============ */
+  .mm-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+  .mm-card { padding: 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); display: flex; flex-direction: column; }
+  .mm-icon { width: 56px; height: 56px; border-radius: var(--r-md); background: var(--accent); color: white; display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; margin-bottom: 1.25rem; }
+  .mm-card h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.4rem; margin: 0 0 0.75rem; color: var(--ink); }
+  .mm-card p { margin: 0 0 1.25rem; color: var(--ink-soft); line-height: 1.5; font-size: 0.95rem; }
+  .mm-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: auto; }
+  .mm-tag { padding: 0.25rem 0.7rem; background: var(--bg-warm); color: var(--ink-soft); border-radius: 999px; font-size: 0.78rem; font-weight: 500; }
+
+  /* ============ MEMORY ARCH ============ */
+  .mem-section { background: var(--bg-warm); }
+  .mem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 1rem; }
+  @media (max-width: 900px) { .mem-grid { grid-template-columns: 1fr; } }
+  .mem-card { padding: 1.75rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); position: relative; }
+  .mem-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--accent); border-radius: var(--r-md) var(--r-md) 0 0; }
+  .mem-tier { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+  .mem-title { font-family: var(--font-display); font-weight: 500; font-size: 1.3rem; color: var(--ink); margin: 0 0 0.75rem; }
+  .mem-desc { color: var(--ink-soft); font-size: 0.92rem; line-height: 1.55; margin: 0 0 1rem; }
+  .mem-store { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.75rem; color: var(--muted); padding: 0.5rem 0.75rem; background: var(--bg-warm); border-radius: var(--r-sm); border: 1px solid var(--border); }
+  .mem-flow { margin-top: 2.5rem; padding: 1.75rem; background: var(--surface); border: 1px dashed var(--border); border-radius: var(--r-md); font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.85rem; color: var(--ink-soft); line-height: 1.7; overflow-x: auto; max-width: 100%; word-break: break-word; -webkit-overflow-scrolling: touch; }
+  .mem-flow strong { color: var(--accent); }
+
+  /* ============ LIVE DEMO ============ */
+  .demo-shell { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow); max-width: 720px; margin: 0 auto; }
+  .demo-header { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.75rem; background: var(--bg-warm); }
+  .demo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 4px rgba(45,95,63,0.15); }
+  .demo-title { font-weight: 600; color: var(--ink); font-size: 0.95rem; }
+  .demo-tag { margin-left: 0; font-size: 0.75rem; padding: 0.25rem 0.65rem; background: var(--bg); border-radius: 999px; color: var(--muted); border: 1px solid var(--border); }
+  .demo-lang { margin-left: auto; display: inline-flex; gap: 0.2rem; padding: 0.2rem; background: var(--bg); border: 1px solid var(--border); border-radius: 999px; }
+  .lang-btn-mini { min-height: 28px; min-width: 36px; padding: 0.2rem 0.55rem; font-size: 0.75rem; border-radius: 999px; border: none; background: transparent; color: var(--muted); cursor: pointer; font-weight: 500; transition: background 0.15s, color 0.15s; }
+  .lang-btn-mini:hover { color: var(--ink); }
+  .lang-btn-mini.active { background: var(--ink); color: var(--bg); }
+  .lang-btn-mini:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  @media (max-width: 540px) {
+    .demo-header { flex-wrap: wrap; }
+    .demo-lang { margin-left: auto; }
+    .demo-tag { width: 100%; text-align: center; margin-top: 0.25rem; }
+  }
+  .demo-body { padding: 1.5rem; min-height: 380px; max-height: 520px; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; }
+  .demo-msg { display: flex; gap: 0.75rem; animation: fadein 0.3s ease; }
+  @keyframes fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+  .demo-avatar { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-size: 0.8rem; font-weight: 600; }
+  .demo-msg.user .demo-avatar { background: var(--bg-warm); color: var(--ink); }
+  .demo-msg.agent .demo-avatar { background: var(--accent); color: white; font-family: var(--font-display); }
+  .demo-content { flex: 1; }
+  .demo-msg.user .demo-bubble { background: var(--bg-warm); padding: 0.75rem 1rem; border-radius: var(--r-md); color: var(--ink); font-size: 0.95rem; line-height: 1.5; }
+  .demo-msg.agent .demo-bubble { color: var(--ink); font-size: 0.95rem; line-height: 1.55; }
+  .demo-tool-call { background: var(--bg-warm); border-left: 3px solid var(--accent); padding: 0.6rem 0.9rem; margin: 0.5rem 0; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.78rem; color: var(--ink-soft); border-radius: 4px; word-break: break-word; overflow-wrap: anywhere; }
+  .demo-tool-call b { color: var(--accent); }
+  .demo-thinking { display: inline-flex; gap: 0.3rem; padding: 0.5rem 0.75rem; background: var(--bg-warm); border-radius: var(--r-md); }
+  .demo-thinking span { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); animation: pulse 1.4s infinite ease-in-out; }
+  .demo-thinking span:nth-child(2) { animation-delay: 0.2s; }
+  .demo-thinking span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes pulse { 0%, 80%, 100% { opacity: 0.3; transform: scale(0.85); } 40% { opacity: 1; transform: scale(1); } }
+  .demo-controls { padding: 1rem 1.5rem; border-top: 1px solid var(--border); background: var(--bg); display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .demo-btn { padding: 0.6rem 1rem; min-height: 40px; border: 1px solid var(--border); border-radius: var(--r-sm); background: var(--surface); color: var(--ink); font-family: inherit; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: border-color 0.15s ease; }
+  .demo-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .demo-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .demo-reset { margin-left: auto; color: var(--muted); }
+  /* === PILLARS SECTION === */
+  .pillars-section { background: var(--bg-warm); padding: 5rem 0 6rem; }
+  .pillars-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 3rem; }
+  .pillar-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 2rem; min-width: 0; transition: border-color 0.2s, transform 0.2s; }
+  .pillar-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .pillar-num { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; background: var(--bg-warm); border: 1px solid var(--border); border-radius: 50%; font-family: var(--font-display); font-weight: 600; color: var(--accent); font-size: 1rem; margin-bottom: 1rem; }
+  .pillar-h { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; color: var(--ink); margin: 0 0 0.6rem; line-height: 1.2; }
+  .pillar-d { color: var(--ink-soft); font-size: 0.98rem; margin: 0 0 1.25rem; line-height: 1.55; }
+  .pillar-features { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1rem; }
+  .pillar-features li { font-size: 0.88rem; color: var(--ink-soft); position: relative; padding-left: 1.1rem; line-height: 1.4; }
+  .pillar-features li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+  /* === ARCHITECTURE SECTION === */
+  .arch-section { background: var(--bg); padding: 5rem 0 6rem; }
+  .arch-svg-wrap { margin-top: 3rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 2rem; overflow-x: auto; max-width: 100%; }
+  .arch-svg { display: block; width: 100%; max-width: 1000px; height: auto; margin: 0 auto; min-width: 720px; }
+  .arch-svg .arch-node-bg { fill: var(--bg-warm); stroke: var(--border); stroke-width: 1.5; }
+  .arch-svg .arch-node-bg.primary { fill: var(--accent); stroke: var(--accent); }
+  .arch-svg .arch-node-bg.dark { fill: var(--ink); stroke: var(--ink); }
+  .arch-svg .arch-label { font-family: var(--font-body); font-weight: 600; font-size: 14px; fill: var(--ink); }
+  .arch-svg .arch-label.on-dark { fill: var(--bg); }
+  .arch-svg .arch-sub { font-family: var(--font-body); font-weight: 400; font-size: 11px; fill: var(--muted); }
+  .arch-svg .arch-sub.on-dark { fill: var(--bg-warm); opacity: 0.8; }
+  .arch-svg .arch-arrow { stroke: var(--ink-soft); stroke-width: 1.8; fill: none; marker-end: url(#archArrow); }
+  .arch-svg .arch-arrow-back { stroke: var(--accent); stroke-width: 1.8; fill: none; stroke-dasharray: 5 4; marker-end: url(#archArrowAccent); }
+
+  .arch-layers { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2.5rem; }
+  .arch-layer { background: var(--surface); border-left: 3px solid var(--accent); padding: 1.25rem 1.5rem; border-radius: 0 var(--r-md) var(--r-md) 0; min-width: 0; }
+  .arch-layer-h { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--ink); margin: 0 0 0.4rem; }
+  .arch-layer-d { color: var(--ink-soft); font-size: 0.93rem; line-height: 1.5; margin: 0; }
+
+  /* === SAFETY SECTION === */
+  .safety-section { background: var(--bg-warm); padding: 5rem 0 6rem; }
+  .safety-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-top: 3rem; }
+  .safety-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 1.5rem 1.5rem 1.6rem; min-width: 0; transition: border-color 0.2s; position: relative; }
+  .safety-card:hover { border-color: var(--accent); }
+  .safety-tag { display: inline-block; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); background: rgba(184,66,26,0.08); padding: 0.25rem 0.65rem; border-radius: 999px; margin-bottom: 0.85rem; }
+  .safety-h { font-family: var(--font-display); font-size: 1.18rem; font-weight: 600; color: var(--ink); margin: 0 0 0.5rem; line-height: 1.3; }
+  .safety-d { color: var(--ink-soft); font-size: 0.92rem; line-height: 1.55; margin: 0; }
+
+  @media (max-width: 800px) {
+    .pillars-grid, .arch-layers, .safety-grid { grid-template-columns: 1fr; }
+    .pillar-features { grid-template-columns: 1fr; }
+  }
+
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link" data-i18n="skip.link">Skip to main content</a>
+
+<header role="banner">
+  <div class="container">
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#" class="brand">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none"><circle cx="24" cy="32" r="14" stroke="#B8421A" stroke-width="3.5"/><circle cx="40" cy="32" r="14" stroke="currentColor" stroke-width="3.5"/><circle cx="32" cy="32" r="2.5" fill="#B8421A"/></svg></span>
+        <span>Sanak</span>
+      </a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="#pillars" data-i18n="nav.pillars">Pillars</a></li>
+          <li><a href="#problem" data-i18n="nav.problem">Problem</a></li>
+          <li><a href="#access" data-i18n="nav.access">Accessibility</a></li>
+          <li><a href="#architecture" data-i18n="nav.architecture">Architecture</a></li>
+          <li><a href="#safety" data-i18n="nav.safety">Safety</a></li>
+          <li><a href="#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
+        </ul>
+        <div class="lang-switch" role="group" data-i18n-aria="lang.switch.label" aria-label="Page language">
+          <button type="button" class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" class="lang-btn" data-lang="id" aria-pressed="false">ID</button>
+          <button type="button" class="lang-btn" data-lang="cn" aria-pressed="false">中</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container">
+      <div class="hero-eyebrow" role="status" aria-live="polite" data-i18n="hero.eyebrow">Limited pilot Q4 2026 — open for 100 MSMEs</div>
+      <h1 id="hero-title">
+        <span data-i18n="hero.title.a">An AI</span>
+        <em data-i18n="hero.title.em">family assistant</em><br>
+        <span data-i18n="hero.title.b">for 60 million Indonesian MSMEs.</span>
+      </h1>
+      <p class="hero-lead" data-i18n="hero.lead">Sanak is an Indonesian-language AI assistant designed voice-first and accessibility-first — so warung owners, ojek drivers, home-based sellers, and visually-impaired users can use it with voice alone, no tech expertise required.</p>
+      <div class="hero-cta">
+        <a href="#how" class="btn btn-primary" data-i18n="hero.cta.primary">See how it works</a>
+        <a href="#access" class="btn btn-secondary" data-i18n="hero.cta.secondary">Accessibility philosophy</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="scale-strip" aria-label="Scale of impact">
+    <div class="container">
+      <div class="scale-grid">
+        <div class="scale-stat">
+          <div class="scale-stat-num" data-i18n="scale.s1.num">60M+</div>
+          <div class="scale-stat-label" data-i18n="scale.s1.label">MSMEs in Indonesia, most without modern digital tools</div>
+        </div>
+        <div class="scale-stat">
+          <div class="scale-stat-num" data-i18n="scale.s2.num">4M+</div>
+          <div class="scale-stat-label" data-i18n="scale.s2.label">Indonesians with visual impairment need voice-first interfaces</div>
+        </div>
+        <div class="scale-stat">
+          <div class="scale-stat-num" data-i18n="scale.s3.num">79%</div>
+          <div class="scale-stat-label" data-i18n="scale.s3.label">WhatsApp penetration in Indonesia — Sanak's primary distribution channel</div>
+        </div>
+        <div class="scale-stat">
+          <div class="scale-stat-num" data-i18n="scale.s4.num">Bilingual</div>
+          <div class="scale-stat-label" data-i18n="scale.s4.label">Bahasa Indonesia, Javanese, Sundanese, Minang — dialect-aware NLU</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pillars" aria-labelledby="pillars-title" class="pillars-section">
+    <div class="container">
+      <div class="section-eyebrow" data-i18n="pillars.eyebrow">Project pillars</div>
+      <h2 id="pillars-title" class="section-title" data-i18n="pillars.title">Four pillars holding Sanak together.</h2>
+      <p class="section-lead" data-i18n="pillars.lead">Every feature on this page maps to one of four pillars. Together they describe what we build, who we build for, and what we refuse to ship.</p>
+
+      <div class="pillars-grid">
+        <article class="pillar-card">
+          <div class="pillar-num" aria-hidden="true">01</div>
+          <h3 class="pillar-h" data-i18n="pillars.p1.h">Inclusion</h3>
+          <p class="pillar-d" data-i18n="pillars.p1.d">Designed first for the people technology has been leaving behind. Voice-first, plain language, weak-signal-friendly.</p>
+          <ul class="pillar-features">
+            <li data-i18n="pillars.p1.f1">Voice-first interface</li>
+            <li data-i18n="pillars.p1.f2">Screen-reader compatibility</li>
+            <li data-i18n="pillars.p1.f3">Plain language tone</li>
+            <li data-i18n="pillars.p1.f4">High contrast & 44px hit targets</li>
+            <li data-i18n="pillars.p1.f5">3G/EDGE optimization</li>
+            <li data-i18n="pillars.p1.f6">Multi-dialect NLU</li>
+          </ul>
+        </article>
+
+        <article class="pillar-card">
+          <div class="pillar-num" aria-hidden="true">02</div>
+          <h3 class="pillar-h" data-i18n="pillars.p2.h">Intelligence</h3>
+          <p class="pillar-d" data-i18n="pillars.p2.d">A real agent — plan, call tools, observe, recover. Multimodal input, three-tier memory, every step traceable.</p>
+          <ul class="pillar-features">
+            <li data-i18n="pillars.p2.f1">8 built-in tools</li>
+            <li data-i18n="pillars.p2.f2">Multi-step reasoning trace</li>
+            <li data-i18n="pillars.p2.f3">Voice + vision + document input</li>
+            <li data-i18n="pillars.p2.f4">3-tier memory architecture</li>
+            <li data-i18n="pillars.p2.f5">Live interactive demo</li>
+          </ul>
+        </article>
+
+        <article class="pillar-card">
+          <div class="pillar-num" aria-hidden="true">03</div>
+          <h3 class="pillar-h" data-i18n="pillars.p3.h">Foundation</h3>
+          <p class="pillar-d" data-i18n="pillars.p3.d">Open-source first, transparent stack, multi-tier model strategy. Lean by design — small model first, escalate only when needed.</p>
+          <ul class="pillar-features">
+            <li data-i18n="pillars.p3.f1">Open-source LLM (flagship + cost-tier)</li>
+            <li data-i18n="pillars.p3.f2">Bilingual STT + TTS</li>
+            <li data-i18n="pillars.p3.f3">WhatsApp + Telegram channels</li>
+            <li data-i18n="pillars.p3.f4">Agent framework</li>
+            <li data-i18n="pillars.p3.f5">Edge runtime + cloud orchestration</li>
+          </ul>
+        </article>
+
+        <article class="pillar-card">
+          <div class="pillar-num" aria-hidden="true">04</div>
+          <h3 class="pillar-h" data-i18n="pillars.p4.h">Trust</h3>
+          <p class="pillar-d" data-i18n="pillars.p4.d">Safe by design. Content moderation, advice limits, end-to-end encryption, prompt-injection sandbox, full audit trail.</p>
+          <ul class="pillar-features">
+            <li data-i18n="pillars.p4.f1">Content moderation</li>
+            <li data-i18n="pillars.p4.f2">Financial advice guardrails</li>
+            <li data-i18n="pillars.p4.f3">E2E memory encryption</li>
+            <li data-i18n="pillars.p4.f4">Prompt-injection defense</li>
+            <li data-i18n="pillars.p4.f5">User-confirmation gates</li>
+            <li data-i18n="pillars.p4.f6">Tool-call audit trail</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="problem" aria-labelledby="problem-title">
+    <div class="container">
+      <div class="section-eyebrow" data-i18n="problem.eyebrow">Problem</div>
+      <h2 id="problem-title" class="section-title" data-i18n="problem.title">Existing AI tools are built for developers, not for the corner-shop owner, the elderly parent, or the visually impaired user.</h2>
+      <p class="section-lead" data-i18n="problem.lead">Digital accessibility in Indonesia isn't just about language. There are four layers preventing today's AI from being truly usable by the majority population.</p>
+
+      <div class="problem-grid">
+        <article class="problem-card">
+          <div class="problem-card-num" data-i18n="problem.c1.num">01 / Language</div>
+          <h3 data-i18n="problem.c1.h">Local context lost</h3>
+          <p data-i18n="problem.c1.p">Global models don't understand local trade idioms or the Bahasa-Javanese-Sundanese mix used daily by market sellers.</p>
+        </article>
+        <article class="problem-card">
+          <div class="problem-card-num" data-i18n="problem.c2.num">02 / Interface</div>
+          <h3 data-i18n="problem.c2.h">Typing is a barrier</h3>
+          <p data-i18n="problem.c2.p">Many MSME owners are elderly, visually-impaired, or simply uncomfortable typing long messages. Voice-first is the prerequisite for actual adoption.</p>
+        </article>
+        <article class="problem-card">
+          <div class="problem-card-num" data-i18n="problem.c3.num">03 / Channel</div>
+          <h3 data-i18n="problem.c3.h">Web/app is too far</h3>
+          <p data-i18n="problem.c3.p">They already live on WhatsApp and Telegram. Forcing a new app install with multi-step onboarding nearly always fails in this market.</p>
+        </article>
+        <article class="problem-card">
+          <div class="problem-card-num" data-i18n="problem.c4.num">04 / Cost</div>
+          <h3 data-i18n="problem.c4.h">Premium APIs aren't realistic</h3>
+          <p data-i18n="problem.c4.p">Average warung owner margin: Rp 500k–2M / month (US$30–125). A US$20+/month AI tool will never get used.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="access" aria-labelledby="access-title">
+    <div class="container">
+      <div class="access-section">
+        <div class="access-grid">
+          <div>
+            <div class="section-eyebrow" data-i18n="access.eyebrow">Philosophy</div>
+            <h2 id="access-title" class="section-title" data-i18n="access.title">Accessibility first, not as an afterthought.</h2>
+            <p class="section-lead" data-i18n="access.lead">Sanak is built with WCAG AA as baseline and voice-first as the primary modality — not bolted on later. What's designed for visually-impaired users ends up more comfortable for everyone.</p>
+          </div>
+
+          <div>
+            <div class="access-feat">
+              <div class="access-feat-icon" aria-hidden="true">VO</div>
+              <div>
+                <h4 data-i18n="access.f1.h">Voice-first, not voice-added</h4>
+                <p data-i18n="access.f1.p">Every feature is fully accessible by voice — commands, navigation, confirmation, correction. Typing is only an alternative.</p>
+              </div>
+            </div>
+            <div class="access-feat">
+              <div class="access-feat-icon" aria-hidden="true">SR</div>
+              <div>
+                <h4 data-i18n="access.f2.h">Screen reader compatible</h4>
+                <p data-i18n="access.f2.p">TalkBack, VoiceOver, NVDA, JAWS — tested across all major AT. Semantic HTML, ARIA roles, alt text written by humans.</p>
+              </div>
+            </div>
+            <div class="access-feat">
+              <div class="access-feat-icon" aria-hidden="true">CL</div>
+              <div>
+                <h4 data-i18n="access.f3.h">Plain language, not jargon</h4>
+                <p data-i18n="access.f3.p">"Got it, today's capital is Rp 50,000" — not "Transaction logged: COGS=50000 IDR". Human tone, plain-language guideline.</p>
+              </div>
+            </div>
+            <div class="access-feat">
+              <div class="access-feat-icon" aria-hidden="true">CT</div>
+              <div>
+                <h4 data-i18n="access.f4.h">High contrast & large hit targets</h4>
+                <p data-i18n="access.f4.p">Minimum 4.5:1 contrast ratio. Buttons minimum 44×44px. Default font size 18px+. Reduced-motion support.</p>
+              </div>
+            </div>
+            <div class="access-feat">
+              <div class="access-feat-icon" aria-hidden="true">OL</div>
+              <div>
+                <h4 data-i18n="access.f5.h">Works on weak signal</h4>
+                <p data-i18n="access.f5.p">Optimized for 3G/EDGE connections still common in non-urban Indonesia. Local cache for frequent voice commands.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" aria-labelledby="how-title">
+    <div class="container">
+      <div class="section-eyebrow" data-i18n="how.eyebrow">How it works</div>
+      <h2 id="how-title" class="section-title" data-i18n="how.title">Four steps to daily use.</h2>
+      <p class="section-lead" data-i18n="how.lead">No install, no multi-step onboarding, no training. Just save the contact, start speaking, and Sanak remembers your business context.</p>
+
+      <div class="how-grid">
+        <article class="how-step">
+          <h3 data-i18n="how.s1.h">Add Sanak on WhatsApp</h3>
+          <p data-i18n="how.s1.p">Save Sanak's number, send "Halo" or hold the mic and say "Halo Sanak". No separate app to download.</p>
+        </article>
+        <article class="how-step">
+          <h3 data-i18n="how.s2.h">Speak like normal conversation</h3>
+          <p data-i18n="how.s2.p">"Catat ya, hari ini jual gorengan 230 biji, untung kira-kira 80 ribu." No special format required, mix Bahasa-Java-Sundanese freely.</p>
+        </article>
+        <article class="how-step">
+          <h3 data-i18n="how.s3.h">Sanak remembers your context</h3>
+          <p data-i18n="how.s3.p">Automatically tracks frequent products, business hours, price ranges, regular customers. Personal context is encrypted, never shared.</p>
+        </article>
+        <article class="how-step">
+          <h3 data-i18n="how.s4.h">Help your work, don't replace it</h3>
+          <p data-i18n="how.s4.p">Draft product captions, calculate margin, compose customer reply templates, build supply lists — Sanak prepares, you decide.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="uc-title" style="background: var(--bg-warm);">
+    <div class="container">
+      <div class="section-eyebrow" data-i18n="uc.eyebrow">Real scenarios</div>
+      <h2 id="uc-title" class="section-title" data-i18n="uc.title">What Sanak can do.</h2>
+      <p class="section-lead" data-i18n="uc.lead">Not a generic chatbot. Every feature is designed from field interviews with MSME owners, visually-impaired community members, and digital-literacy classes for elderly in Bandung and Yogyakarta.</p>
+
+      <ul class="uc-list">
+        <li class="uc-item">
+          <span class="uc-tag" data-i18n="uc.i1.tag">Track</span>
+          <div class="uc-text">
+            <strong data-i18n="uc.i1.h">Daily bookkeeping by voice</strong>
+            <span data-i18n="uc.i1.p">"Income today 320k, capital 180k, rice stock down to 5 kg." Sanak compiles weekly reports automatically.</span>
+          </div>
+          <div class="uc-time" data-i18n="uc.i1.t">~30 sec</div>
+        </li>
+        <li class="uc-item">
+          <span class="uc-tag" data-i18n="uc.i2.tag">Write</span>
+          <div class="uc-text">
+            <strong data-i18n="uc.i2.h">Captions that actually sell</strong>
+            <span data-i18n="uc.i2.p">Product photo + brief description → 3 caption variants in Bahasa or mixed, with relevant hashtags.</span>
+          </div>
+          <div class="uc-time" data-i18n="uc.i2.t">~10 sec</div>
+        </li>
+        <li class="uc-item">
+          <span class="uc-tag" data-i18n="uc.i3.tag">Calculate</span>
+          <div class="uc-text">
+            <strong data-i18n="uc.i3.h">Margin & sensible pricing</strong>
+            <span data-i18n="uc.i3.p">"I bought fabric Rp 45k/meter, makes 5 shirts, want 30% margin." Sanak breaks down a fair selling price.</span>
+          </div>
+          <div class="uc-time" data-i18n="uc.i3.t">~5 sec</div>
+        </li>
+        <li class="uc-item">
+          <span class="uc-tag" data-i18n="uc.i4.tag">Reply</span>
+          <div class="uc-text">
+            <strong data-i18n="uc.i4.h">Quick customer reply templates</strong>
+            <span data-i18n="uc.i4.p">"Customer asks if red size M is in stock, price, Jakarta shipping." Sanak drafts professional reply, you approve.</span>
+          </div>
+          <div class="uc-time" data-i18n="uc.i4.t">~8 sec</div>
+        </li>
+        <li class="uc-item">
+          <span class="uc-tag" data-i18n="uc.i5.tag">Assist</span>
+          <div class="uc-text">
+            <strong data-i18n="uc.i5.h">Companion for visually-impaired users</strong>
+            <span data-i18n="uc.i5.p">Read documents, describe photos, narrate other apps' UI by voice. Not translation — real narration.</span>
+          </div>
+          <div class="uc-time" data-i18n="uc.i5.t">Real-time</div>
+        </li>
+        <li class="uc-item">
+          <span class="uc-tag" data-i18n="uc.i6.tag">Teach</span>
+          <div class="uc-text">
+            <strong data-i18n="uc.i6.h">Bahasa Indonesia tutor for elderly</strong>
+            <span data-i18n="uc.i6.p">Explain tech terminology, help fill online forms, break down electricity or tax bills — in language they actually understand.</span>
+          </div>
+          <div class="uc-time" data-i18n="uc.i6.t">~30 sec</div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============== AGENT & TOOLS ============== -->
+  <section id="agent" aria-labelledby="agent-title">
+    <div class="container">
+      <div class="section-eyebrow" data-i18n="agent.eyebrow">Agent capabilities</div>
+      <h2 id="agent-title" class="section-title" data-i18n="agent.title">A real agent — not a glorified chatbot.</h2>
+      <p class="section-lead" data-i18n="agent.lead">Sanak orchestrates tools across multiple steps to complete real-world tasks. Function calling, structured output, multi-turn reasoning — every action is observable, every step is reproducible.</p>
+
+      <div class="agent-grid">
+        <div>
+          <h3 style="font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; margin: 0 0 1.5rem; color: var(--ink);" data-i18n="agent.tools.h">Built-in tool registry</h3>
+          <ul class="tool-list" aria-label="Agent tools">
+            <li class="tool-row">
+              <span class="tool-name">read_ledger</span>
+              <span class="tool-desc" data-i18n="agent.tool.t1">Query encrypted bookkeeping store with date range, category filters, aggregations.</span>
+            </li>
+            <li class="tool-row">
+              <span class="tool-name">log_transaction</span>
+              <span class="tool-desc" data-i18n="agent.tool.t2">Parse natural-language entry into structured row: amount, type, category, timestamp.</span>
+            </li>
+            <li class="tool-row">
+              <span class="tool-name">calculate_margin</span>
+              <span class="tool-desc" data-i18n="agent.tool.t3">Cost basis breakdown, suggested selling price, breakeven volume from cost inputs.</span>
+            </li>
+            <li class="tool-row">
+              <span class="tool-name">describe_image</span>
+              <span class="tool-desc" data-i18n="agent.tool.t4">Multimodal vision — product photo to caption, document scan to summary, scene narration.</span>
+            </li>
+            <li class="tool-row">
+              <span class="tool-name">draft_caption</span>
+              <span class="tool-desc" data-i18n="agent.tool.t5">Generate platform-aware copy for Shopee, TikTok, Instagram with relevant hashtags.</span>
+            </li>
+            <li class="tool-row">
+              <span class="tool-name">draft_reply</span>
+              <span class="tool-desc" data-i18n="agent.tool.t6">Compose customer message replies in matching tone, await user approval before sending.</span>
+            </li>
+            <li class="tool-row">
+              <span class="tool-name">read_document</span>
+              <span class="tool-desc" data-i18n="agent.tool.t7">Parse PDFs, scans, screenshots — bills, invoices, government forms — and explain plainly.</span>
+            </li>
+            <li class="tool-row">
+              <span class="tool-name">schedule_reminder</span>
+              <span class="tool-desc" data-i18n="agent.tool.t8">Proactive: stock-low notifications, weekly summary push, payment-due reminders.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 style="font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; margin: 0 0 1.5rem; color: var(--ink);" data-i18n="agent.trace.h">Multi-step reasoning trace</h3>
+          <div class="trace" role="img" aria-labelledby="agent-trace-caption">
+<span class="trace-line"><span class="trace-user" data-i18n="agent.trace.user">USER (voice)</span> <span data-i18n="agent.trace.user.txt">"Hitung untung minggu ini dong, terus bikin caption buat upload Senin."</span></span>
+
+<span class="trace-line"><span class="trace-thought" data-i18n="agent.trace.t1"># Step 1 — Decompose intent</span></span>
+<span class="trace-line"><span class="trace-arrow">└─</span> <span data-i18n="agent.trace.t1.txt">parsed: [calc_weekly_profit, draft_caption(monday)]</span></span>
+
+<span class="trace-line"><span class="trace-thought" data-i18n="agent.trace.t2"># Step 2 — Tool call</span></span>
+<span class="trace-line"><span class="trace-tool">→ read_ledger</span>(<span style="color:#E8A87C">range="last_7d"</span>)</span>
+<span class="trace-line"><span class="trace-arrow">  └─</span> <span class="trace-output" data-i18n="agent.trace.t2.txt">income=2.34M, costs=1.18M, net=1.16M</span></span>
+
+<span class="trace-line"><span class="trace-thought" data-i18n="agent.trace.t3"># Step 3 — Tool call</span></span>
+<span class="trace-line"><span class="trace-tool">→ describe_image</span>(<span style="color:#E8A87C">user_photo_id=p_4821</span>)</span>
+<span class="trace-line"><span class="trace-arrow">  └─</span> <span class="trace-output" data-i18n="agent.trace.t3.txt">"keripik singkong, kemasan plastik, label brand"</span></span>
+
+<span class="trace-line"><span class="trace-thought" data-i18n="agent.trace.t4"># Step 4 — Tool call</span></span>
+<span class="trace-line"><span class="trace-tool">→ draft_caption</span>(<span style="color:#E8A87C">platform="tiktok"</span>, <span style="color:#E8A87C">tone="warm"</span>)</span>
+<span class="trace-line"><span class="trace-arrow">  └─</span> <span class="trace-output" data-i18n="agent.trace.t4.txt">3 caption variants generated</span></span>
+
+<span class="trace-line"><span class="trace-final" data-i18n="agent.trace.final">FINAL → user (TTS):</span></span>
+<span class="trace-line"><span data-i18n="agent.trace.final.txt">"Untung bersih minggu ini Rp 1.16 juta, naik 12% dari minggu lalu. Aku siapin 3 caption buat keripik singkong-nya, kamu pilih yang mana?"</span></span>
+          </div>
+          <p id="agent-trace-caption" style="margin-top: 1rem; font-size: 0.85rem; color: var(--muted);" data-i18n="agent.trace.cap">Real reasoning trace from a Sanak agent run, simplified for presentation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== MULTIMODAL ============== -->
+  <section id="multimodal" aria-labelledby="mm-title" class="tech-section">
+    <div class="container">
+      <div class="section-eyebrow" data-i18n="mm.eyebrow">Multimodal</div>
+      <h2 id="mm-title" class="section-title" data-i18n="mm.title">Voice and vision are the interface — not text.</h2>
+      <p class="section-lead" data-i18n="mm.lead">For an audience that can't always type or read screens, multimodal isn't a feature — it's the entire premise. Sanak processes audio, images, and documents as first-class inputs.</p>
+
+      <div class="mm-grid">
+        <article class="mm-card">
+          <div class="mm-icon" aria-hidden="true">🎙</div>
+          <h3 data-i18n="mm.c1.h">Voice in, voice out</h3>
+          <p data-i18n="mm.c1.p">Continuous speech-to-text in Bahasa Indonesia and regional dialects. Natural TTS responses, no robotic monotone. Full conversation by voice alone.</p>
+          <div class="mm-tags">
+            <span class="mm-tag">STT bilingual</span>
+            <span class="mm-tag">TTS natural</span>
+            <span class="mm-tag">Dialect-aware</span>
+          </div>
+        </article>
+
+        <article class="mm-card">
+          <div class="mm-icon" aria-hidden="true">📸</div>
+          <h3 data-i18n="mm.c2.h">Vision for sellers</h3>
+          <p data-i18n="mm.c2.p">Snap a product photo — Sanak generates platform-tuned captions, suggests pricing, drafts marketplace listings. No typing, no description needed.</p>
+          <div class="mm-tags">
+            <span class="mm-tag">Product captions</span>
+            <span class="mm-tag">Listing drafts</span>
+            <span class="mm-tag">Price suggest</span>
+          </div>
+        </article>
+
+        <article class="mm-card">
+          <div class="mm-icon" aria-hidden="true">👁</div>
+          <h3 data-i18n="mm.c3.h">Vision for accessibility</h3>
+          <p data-i18n="mm.c3.p">For visually-impaired users: real-time scene narration, document reading, navigating other apps' screens by voice description. Not translation — full narration.</p>
+          <div class="mm-tags">
+            <span class="mm-tag">Scene narration</span>
+            <span class="mm-tag">Doc reading</span>
+            <span class="mm-tag">Real-time</span>
+          </div>
+        </article>
+
+        <article class="mm-card">
+          <div class="mm-icon" aria-hidden="true">📄</div>
+          <h3 data-i18n="mm.c4.h">Document understanding</h3>
+          <p data-i18n="mm.c4.p">Bills, invoices, tax forms, government letters — photo or PDF in, plain-language explanation out. Critical for elderly users and form-heavy small businesses.</p>
+          <div class="mm-tags">
+            <span class="mm-tag">PDF parse</span>
+            <span class="mm-tag">OCR + reasoning</span>
+            <span class="mm-tag">Plain-language</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== STACK ============== -->
+  <section id="stack" class="tech-section" aria-labelledby="stack-title">
+    <div class="container">
+      <div class="section-eyebrow" data-i18n="stack.eyebrow">Technology</div>
+      <h2 id="stack-title" class="section-title" data-i18n="stack.title">Open-source stack, multi-tier, low operational cost.</h2>
+      <p class="section-lead" data-i18n="stack.lead">Sanak runs on an open-source agent runtime with multi-tier model routing — heavy tasks go to strong reasoning models, light tasks to fast cheap models. Cost per active user can be pushed down to a sustainable range.</p>
+
+      <div class="tech-grid">
+        <div class="tech-card">
+          <div class="tech-label" data-i18n="stack.t1.label">Inference Tier — Reasoning</div>
+          <div class="tech-name" data-i18n="stack.t1.name">Flagship LLM</div>
+          <div class="tech-desc" data-i18n="stack.t1.desc">Complex tasks: bookkeeping, price breakdown, long narration, image description for visually-impaired users.</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-label" data-i18n="stack.t2.label">Inference Tier — Volume</div>
+          <div class="tech-name" data-i18n="stack.t2.name">Cost-Efficient LLM</div>
+          <div class="tech-desc" data-i18n="stack.t2.desc">High-volume: product captions, customer chat replies, intent classification. Low cost-per-call.</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-label" data-i18n="stack.t3.label">Speech</div>
+          <div class="tech-name" data-i18n="stack.t3.name">Bilingual STT + TTS</div>
+          <div class="tech-desc" data-i18n="stack.t3.desc">Bahasa Indonesia + dialects (Javanese, Sundanese, Minang). Natural voice synthesis for audio responses.</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-label" data-i18n="stack.t4.label">Channel</div>
+          <div class="tech-name" data-i18n="stack.t4.name">WhatsApp + Telegram</div>
+          <div class="tech-desc" data-i18n="stack.t4.desc">No native app. Direct distribution on platforms already used by 79% of Indonesian population.</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-label" data-i18n="stack.t5.label">Runtime</div>
+          <div class="tech-name" data-i18n="stack.t5.name">Agent Framework</div>
+          <div class="tech-desc" data-i18n="stack.t5.desc">Persistent per-user memory, tool system, multi-step reasoning, structured output. Self-host friendly.</div>
+        </div>
+        <div class="tech-card">
+          <div class="tech-label" data-i18n="stack.t6.label">Privacy</div>
+          <div class="tech-name" data-i18n="stack.t6.name">End-to-End Encrypted Memory</div>
+          <div class="tech-desc" data-i18n="stack.t6.desc">Business data encrypted at rest with per-user keys. Never used for training. Auditable.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== MEMORY ARCHITECTURE ============== -->
+  <section id="architecture" aria-labelledby="arch-title" class="arch-section">
+    <div class="container">
+      <div class="section-eyebrow" data-i18n="arch.eyebrow">Architecture</div>
+      <h2 id="arch-title" class="section-title" data-i18n="arch.title">From spoken word to spoken answer.</h2>
+      <p class="section-lead" data-i18n="arch.lead">How Sanak handles a single voice message — across channel, edge runtime, agent core, tools, memory, and back to voice. Average end-to-end latency under 3 seconds.</p>
+
+      <div class="arch-svg-wrap" role="img" aria-label="Sanak system architecture diagram">
+        <svg class="arch-svg" viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="archArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#4A3F30"/>
+            </marker>
+            <marker id="archArrowAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#B8421A"/>
+            </marker>
+          </defs>
+
+          <!-- User input -->
+          <g transform="translate(20, 200)">
+            <rect class="arch-node-bg primary" width="140" height="80" rx="10"/>
+            <text class="arch-label on-dark" x="70" y="35" text-anchor="middle" data-i18n="arch.svg.user">User input</text>
+            <text class="arch-sub on-dark" x="70" y="55" text-anchor="middle" data-i18n="arch.svg.user.tags">voice · photo · document</text>
+          </g>
+
+          <!-- Channel -->
+          <g transform="translate(190, 200)">
+            <rect class="arch-node-bg" width="140" height="80" rx="10"/>
+            <text class="arch-label" x="70" y="35" text-anchor="middle" data-i18n="arch.svg.channel">Channel layer</text>
+            <text class="arch-sub" x="70" y="55" text-anchor="middle" data-i18n="arch.svg.channel.sub">WhatsApp · Telegram</text>
+          </g>
+
+          <!-- Edge -->
+          <g transform="translate(360, 200)">
+            <rect class="arch-node-bg" width="160" height="80" rx="10"/>
+            <text class="arch-label" x="80" y="32" text-anchor="middle" data-i18n="arch.svg.edge">Edge runtime</text>
+            <text class="arch-sub" x="80" y="52" text-anchor="middle" data-i18n="arch.svg.edge.sub">cache · retry queue · weak-signal handling</text>
+          </g>
+
+          <!-- Agent core -->
+          <g transform="translate(550, 200)">
+            <rect class="arch-node-bg dark" width="160" height="80" rx="10"/>
+            <text class="arch-label on-dark" x="80" y="35" text-anchor="middle" data-i18n="arch.svg.agent">Agent core</text>
+            <text class="arch-sub on-dark" x="80" y="55" text-anchor="middle" data-i18n="arch.svg.agent.sub">planner · orchestrator · recovery</text>
+          </g>
+
+          <!-- Output -->
+          <g transform="translate(840, 200)">
+            <rect class="arch-node-bg primary" width="140" height="80" rx="10"/>
+            <text class="arch-label on-dark" x="70" y="35" text-anchor="middle" data-i18n="arch.svg.output">Response</text>
+            <text class="arch-sub on-dark" x="70" y="55" text-anchor="middle" data-i18n="arch.svg.output.sub">TTS · text · structured</text>
+          </g>
+
+          <!-- Tools (top branch from Agent) -->
+          <g transform="translate(440, 60)">
+            <rect class="arch-node-bg" width="160" height="70" rx="10"/>
+            <text class="arch-label" x="80" y="30" text-anchor="middle" data-i18n="arch.svg.tools">Tool registry</text>
+            <text class="arch-sub" x="80" y="50" text-anchor="middle" data-i18n="arch.svg.tools.sub">8 sandboxed tools</text>
+          </g>
+
+          <!-- Memory (bottom branch from Agent) -->
+          <g transform="translate(440, 360)">
+            <rect class="arch-node-bg" width="160" height="70" rx="10"/>
+            <text class="arch-label" x="80" y="30" text-anchor="middle" data-i18n="arch.svg.memory">Memory layer</text>
+            <text class="arch-sub" x="80" y="50" text-anchor="middle" data-i18n="arch.svg.memory.sub">3-tier · E2E encrypted</text>
+          </g>
+
+          <!-- Models (top-right branch from Agent) -->
+          <g transform="translate(660, 60)">
+            <rect class="arch-node-bg" width="160" height="70" rx="10"/>
+            <text class="arch-label" x="80" y="30" text-anchor="middle" data-i18n="arch.svg.models">Model tier</text>
+            <text class="arch-sub" x="80" y="50" text-anchor="middle" data-i18n="arch.svg.models.sub">small · flagship · vision</text>
+          </g>
+
+          <!-- Forward arrows (left to right) -->
+          <path class="arch-arrow" d="M 160 240 L 188 240"/>
+          <path class="arch-arrow" d="M 330 240 L 358 240"/>
+          <path class="arch-arrow" d="M 520 240 L 548 240"/>
+          <path class="arch-arrow" d="M 710 240 L 838 240"/>
+
+          <!-- Branches from Agent core to tools/memory/models -->
+          <path class="arch-arrow" d="M 595 200 Q 595 170 530 130"/>
+          <path class="arch-arrow" d="M 660 200 Q 660 170 730 130"/>
+          <path class="arch-arrow" d="M 630 280 Q 630 320 530 360"/>
+
+          <!-- Return path (memory back to agent) -->
+          <path class="arch-arrow-back" d="M 600 360 Q 700 340 690 280"/>
+        </svg>
+      </div>
+
+      <div class="arch-layers">
+        <div class="arch-layer">
+          <h3 class="arch-layer-h" data-i18n="arch.l1.h">Channel layer</h3>
+          <p class="arch-layer-d" data-i18n="arch.l1.d">WhatsApp Business API + Telegram Bot API. Message ingress and TTS output back to user, no install required.</p>
+        </div>
+        <div class="arch-layer">
+          <h3 class="arch-layer-h" data-i18n="arch.l2.h">Edge runtime</h3>
+          <p class="arch-layer-d" data-i18n="arch.l2.d">Local cache, retry queue, weak-signal handling. Voice cached for offline replay, transcripts queued when network drops.</p>
+        </div>
+        <div class="arch-layer">
+          <h3 class="arch-layer-h" data-i18n="arch.l3.h">Agent core</h3>
+          <p class="arch-layer-d" data-i18n="arch.l3.d">Orchestrator + planner. Decomposes intent, calls tools in sequence, recovers from errors, formats human-friendly response.</p>
+        </div>
+        <div class="arch-layer">
+          <h3 class="arch-layer-h" data-i18n="arch.l4.h">Tool registry</h3>
+          <p class="arch-layer-d" data-i18n="arch.l4.d">8 callable tools — bookkeeping, captions, vision, document parse, proactive notifications. Each tool sandboxed with structured I/O.</p>
+        </div>
+        <div class="arch-layer">
+          <h3 class="arch-layer-h" data-i18n="arch.l5.h">Memory layer</h3>
+          <p class="arch-layer-d" data-i18n="arch.l5.d">Three tiers — working, episodic, semantic. End-to-end encrypted per user. No cross-user training data exposure.</p>
+        </div>
+        <div class="arch-layer">
+          <h3 class="arch-layer-h" data-i18n="arch.l6.h">Model tier</h3>
+          <p class="arch-layer-d" data-i18n="arch.l6.d">Cost-efficient small model handles 80% of requests. Escalates to flagship LLM only for complex reasoning or vision tasks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="memory" aria-labelledby="mem-title" class="mem-section">
+    <div class="container">
+      <div class="section-eyebrow" data-i18n="mem.eyebrow">Memory architecture</div>
+      <h2 id="mem-title" class="section-title" data-i18n="mem.title">Three-tier memory, encrypted per user.</h2>
+      <p class="section-lead" data-i18n="mem.lead">Sanak doesn't store conversation logs in plaintext. Each user gets a dedicated key; memory is partitioned by purpose; recall is grounded against verifiable sources before the agent acts.</p>
+
+      <div class="mem-grid">
+        <div class="mem-card">
+          <div class="mem-tier" data-i18n="mem.t1.tier">Tier 1 — Working</div>
+          <h3 class="mem-title" data-i18n="mem.t1.h">Conversation context</h3>
+          <p class="mem-desc" data-i18n="mem.t1.p">Last N turns kept in-flight for the current session. Cleared on session close. Used for pronoun resolution and short-term task continuity.</p>
+          <div class="mem-store" data-i18n="mem.t1.s">in-memory · session-scoped</div>
+        </div>
+        <div class="mem-card">
+          <div class="mem-tier" data-i18n="mem.t2.tier">Tier 2 — Episodic</div>
+          <h3 class="mem-title" data-i18n="mem.t2.h">Per-user history</h3>
+          <p class="mem-desc" data-i18n="mem.t2.p">Past interactions, decisions, corrections. Encrypted at rest with per-user keys. Indexed for semantic recall — "remember when I said X" works without scanning all chats.</p>
+          <div class="mem-store" data-i18n="mem.t2.s">vector store · AES-GCM encrypted</div>
+        </div>
+        <div class="mem-card">
+          <div class="mem-tier" data-i18n="mem.t3.tier">Tier 3 — Semantic</div>
+          <h3 class="mem-title" data-i18n="mem.t3.h">Business knowledge graph</h3>
+          <p class="mem-desc" data-i18n="mem.t3.p">Structured facts about the user's business — products, suppliers, customers, prices, hours, dialect preferences. Updated by agent observations, queryable as graph.</p>
+          <div class="mem-store" data-i18n="mem.t3.s">graph DB · entity-relation</div>
+        </div>
+      </div>
+
+      <div class="mem-flow">
+<strong data-i18n="mem.flow.q">Query:</strong> <span data-i18n="mem.flow.q.txt">"Berapa harga keripik singkong yang biasa aku jual?"</span>
+  ↓
+<strong data-i18n="mem.flow.r1">Recall:</strong> <span data-i18n="mem.flow.r1.txt">Tier 3 graph lookup → product:keripik_singkong</span>
+  ↓
+<strong data-i18n="mem.flow.r2">Augment:</strong> <span data-i18n="mem.flow.r2.txt">Tier 2 episodic → recent price changes (last 30d)</span>
+  ↓
+<strong data-i18n="mem.flow.r3">Ground:</strong> <span data-i18n="mem.flow.r3.txt">cite source row from ledger, not hallucinated</span>
+  ↓
+<strong data-i18n="mem.flow.r4">Respond:</strong> <span data-i18n="mem.flow.r4.txt">"Rp 15.000 per pack, terakhir dinaikkan dari 13.500 dua minggu lalu."</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== LIVE DEMO ============== -->
+  <section id="demo" aria-labelledby="demo-title">
+    <div class="container">
+      <div class="section-eyebrow" data-i18n="demo.eyebrow">Interactive demo</div>
+      <h2 id="demo-title" class="section-title" data-i18n="demo.title">See an agent run, step by step.</h2>
+      <p class="section-lead" data-i18n="demo.lead">Pick a scenario below to watch Sanak handle a real MSME request — voice input, tool calls, memory recall, final response. Simplified for clarity, but the flow mirrors the actual production pipeline.</p>
+
+      <div class="demo-shell">
+        <div class="demo-header">
+          <div class="demo-dot" aria-hidden="true"></div>
+          <div class="demo-title" data-i18n="demo.shell.title">Sanak — agent session</div>
+          <div class="demo-lang" role="group" aria-label="Demo language">
+            <button type="button" class="lang-btn lang-btn-mini" data-lang="en" aria-pressed="false">EN</button>
+            <button type="button" class="lang-btn lang-btn-mini" data-lang="id" aria-pressed="false">ID</button>
+            <button type="button" class="lang-btn lang-btn-mini" data-lang="cn" aria-pressed="false" lang="zh-Hans">中</button>
+          </div>
+          <span class="demo-tag" data-i18n="demo.shell.tag">simulation</span>
+        </div>
+        <div class="demo-body" id="demoBody" role="log" aria-live="polite" aria-atomic="false">
+          <!-- populated by JS -->
+        </div>
+        <div class="demo-controls">
+          <button type="button" class="demo-btn" data-scenario="bookkeeping" data-i18n="demo.s1">Weekly bookkeeping</button>
+          <button type="button" class="demo-btn" data-scenario="caption" data-i18n="demo.s2">Generate captions</button>
+          <button type="button" class="demo-btn" data-scenario="margin" data-i18n="demo.s3">Pricing & margin</button>
+          <button type="button" class="demo-btn" data-scenario="accessibility" data-i18n="demo.s4">Doc reading (a11y)</button>
+          <button type="button" class="demo-btn demo-reset" id="demoReset" data-i18n="demo.reset">Reset</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="safety" aria-labelledby="safety-title" class="safety-section">
+    <div class="container">
+      <div class="section-eyebrow" data-i18n="safety.eyebrow">Safety & guardrails</div>
+      <h2 id="safety-title" class="section-title" data-i18n="safety.title">Safe by design — not by accident.</h2>
+      <p class="section-lead" data-i18n="safety.lead">An assistant that reaches the elderly, the visually impaired, and small-margin businesses must be careful by default. Every guardrail below is a hard constraint, not a wishlist.</p>
+
+      <div class="safety-grid">
+        <article class="safety-card">
+          <span class="safety-tag" data-i18n="safety.c1.tag">Content</span>
+          <h3 class="safety-h" data-i18n="safety.c1.h">Content moderation</h3>
+          <p class="safety-d" data-i18n="safety.c1.d">Hate speech, NSFW, harmful instructions, and harassment are filtered at input and output. Indonesian-context-aware — local slurs and dog-whistles are caught alongside English.</p>
+        </article>
+
+        <article class="safety-card">
+          <span class="safety-tag" data-i18n="safety.c2.tag">Advice</span>
+          <h3 class="safety-h" data-i18n="safety.c2.h">Conservative on financial / legal / medical</h3>
+          <p class="safety-d" data-i18n="safety.c2.d">No investment recommendations, no legal opinions, no medical diagnoses. Sanak helps with bookkeeping and pricing, not "should I take this loan." Hard refusal with redirect to qualified human.</p>
+        </article>
+
+        <article class="safety-card">
+          <span class="safety-tag" data-i18n="safety.c3.tag">Privacy</span>
+          <h3 class="safety-h" data-i18n="safety.c3.h">End-to-end memory encryption</h3>
+          <p class="safety-d" data-i18n="safety.c3.d">User memory — transactions, customer notes, business context — is encrypted with per-user keys before leaving the device. The server cannot read business data, even if compromised.</p>
+        </article>
+
+        <article class="safety-card">
+          <span class="safety-tag" data-i18n="safety.c4.tag">Hallucination</span>
+          <h3 class="safety-h" data-i18n="safety.c4.h">Cited tool outputs, confidence labels</h3>
+          <p class="safety-d" data-i18n="safety.c4.d">When Sanak gives a number, the source tool call is shown in the audit trail. Uncertain answers carry an explicit "I'm not sure" prefix. Numbers are never invented.</p>
+        </article>
+
+        <article class="safety-card">
+          <span class="safety-tag" data-i18n="safety.c5.tag">Injection</span>
+          <h3 class="safety-h" data-i18n="safety.c5.h">Prompt-injection sandbox</h3>
+          <p class="safety-d" data-i18n="safety.c5.d">Tool inputs are validated against a strict schema. Customer messages are quoted, not interpreted as commands. A customer typing "ignore previous instructions" cannot make Sanak send their data elsewhere.</p>
+        </article>
+
+        <article class="safety-card">
+          <span class="safety-tag" data-i18n="safety.c6.tag">Confirmation</span>
+          <h3 class="safety-h" data-i18n="safety.c6.h">User confirmation before send</h3>
+          <p class="safety-d" data-i18n="safety.c6.d">Outbound actions — replying to customers, sending invoices, posting to social — always require explicit user confirmation. Drafts shown in plain language, never auto-sent.</p>
+        </article>
+
+        <article class="safety-card">
+          <span class="safety-tag" data-i18n="safety.c7.tag">Audit</span>
+          <h3 class="safety-h" data-i18n="safety.c7.h">Tool-call audit trail</h3>
+          <p class="safety-d" data-i18n="safety.c7.d">Every tool call is logged client-side with timestamp, inputs, and outputs. Users can review their full history and revoke specific actions retroactively.</p>
+        </article>
+
+        <article class="safety-card">
+          <span class="safety-tag" data-i18n="safety.c8.tag">Refusal</span>
+          <h3 class="safety-h" data-i18n="safety.c8.h">Honest "I can't help with that"</h3>
+          <p class="safety-d" data-i18n="safety.c8.d">When Sanak hits its limits, it says so plainly and suggests a next step — human contact, retry phrasing, alternative tool. Never invents a workaround.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="roadmap" aria-labelledby="road-title">
+    <div class="container">
+      <div class="section-eyebrow" data-i18n="road.eyebrow">Roadmap</div>
+      <h2 id="road-title" class="section-title" data-i18n="road.title">12-month plan ahead.</h2>
+      <p class="section-lead" data-i18n="road.lead">Iterative approach, starting from limited pilot. Validate with community first, then scale.</p>
+
+      <div class="road-track">
+        <div class="road-item active">
+          <div class="road-quarter" data-i18n="road.r1.q">Q3 2026 — Now</div>
+          <h4 data-i18n="road.r1.h">MVP & Closed Pilot</h4>
+          <p data-i18n="road.r1.p">Core voice flow + daily bookkeeping + product captions. Pilot with 30 MSME owners in Bandung & Yogyakarta. Visually-impaired community as accessibility partner from day one.</p>
+        </div>
+        <div class="road-item active">
+          <div class="road-quarter" data-i18n="road.r2.q">Q4 2026</div>
+          <h4 data-i18n="road.r2.h">Open Pilot — 100 MSMEs</h4>
+          <p data-i18n="road.r2.p">Recruitment via regional MSME associations. Added features: margin calculation, customer reply templates, simple invoice integration. Weekly feedback loop.</p>
+        </div>
+        <div class="road-item future">
+          <div class="road-quarter" data-i18n="road.r3.q">Q1 2027</div>
+          <h4 data-i18n="road.r3.h">Public Beta — 1,000 users</h4>
+          <p data-i18n="road.r3.p">Javanese & Sundanese support production-ready. Accessibility audit by disability organization. Partnerships with cooperatives and elderly-digital-literacy communities.</p>
+        </div>
+        <div class="road-item future">
+          <div class="road-quarter" data-i18n="road.r4.q">Q2 2027</div>
+          <h4 data-i18n="road.r4.h">Scale-up — Regional</h4>
+          <p data-i18n="road.r4.p">Target 10,000 active users, expansion to tier-2 cities. Explore offline-first mode for unstable-connection regions. Open-source release of core agent runtime.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="cta-title">
+    <div class="container">
+      <div class="cta-final">
+        <h2 id="cta-title">
+          <span data-i18n="cta.title.a">AI that</span>
+          <em data-i18n="cta.title.em">actually makes sense</em>
+          <span data-i18n="cta.title.b">for everyone.</span>
+        </h2>
+        <p data-i18n="cta.lead">Sanak isn't a developer tool or enterprise SaaS. It's a digital family assistant — for the corner-shop owner, the visually impaired, the elderly parent, and everyone technology has been leaving behind.</p>
+        <div class="hero-cta" style="justify-content: center;">
+          <a href="#how" class="btn btn-primary" data-i18n="cta.primary">See how it works</a>
+          <a href="mailto:hello@sanak.id" class="btn btn-secondary" data-i18n="cta.secondary">Join Q4 2026 pilot</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><path d="M 32 12 A 20 20 0 1 1 18.5 47.7" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" fill="none"/><circle cx="32" cy="12" r="3.2" fill="currentColor"/><circle cx="44" cy="20" r="3.2" fill="currentColor"/></svg></span>
+          <span>Sanak</span>
+        </div>
+        <p data-i18n="foot.tag">Accessibility-first AI assistant for 60 million Indonesian MSMEs. Voice-first, bilingual, affordable. Built with and for local communities.</p>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="foot.col1.h">Product</h5>
+        <ul>
+          <li><a href="#how" data-i18n="nav.how">How it works</a></li>
+          <li><a href="#access" data-i18n="nav.access">Accessibility</a></li>
+          <li><a href="#stack" data-i18n="nav.stack">Stack</a></li>
+          <li><a href="#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="foot.col2.h">Community</h5>
+        <ul>
+          <li><a href="#" data-i18n="foot.col2.l1">Join pilot</a></li>
+          <li><a href="#" data-i18n="foot.col2.l2">Accessibility audit</a></li>
+          <li><a href="#" data-i18n="foot.col2.l3">MSME partners</a></li>
+          <li><a href="#" data-i18n="foot.col2.l4">Open-source repo</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <div data-i18n="foot.copy">© 2026 Sanak. Pilot project — accessibility-first AI for Indonesian MSMEs.</div>
+      <div class="foot-lang" data-i18n-aria="foot.lang.label" aria-label="Supported languages">
+        <span class="lang-tag" lang="id">Bahasa</span>
+        <span class="lang-tag" lang="jv">Jawa</span>
+        <span class="lang-tag" lang="su">Sunda</span>
+        <span class="lang-tag" lang="min">Minang</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="i18n.js"></script>
+<script src="i18n-extra.js"></script>
+<script src="i18n-extra-2.js"></script>
+<script src="demo.js"></script>
+</body>
+</html>

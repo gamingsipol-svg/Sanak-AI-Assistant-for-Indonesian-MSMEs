@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" fill="none">
+  <!-- Apple touch icon: 180×180 with rounded corners + brand bg -->
+  <rect width="180" height="180" rx="40" fill="#FBF7F0"/>
+  <circle cx="68" cy="90" r="38" stroke="#B8421A" stroke-width="11" fill="none"/>
+  <circle cx="112" cy="90" r="38" stroke="#1F1A14" stroke-width="11" fill="none"/>
+  <circle cx="90" cy="90" r="8" fill="#B8421A"/>
+</svg>

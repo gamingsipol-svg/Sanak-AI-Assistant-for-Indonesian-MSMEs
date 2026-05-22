@@ -1,0 +1,21 @@
+# Build artifacts
+*.log
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*~
+
+# Local dev
+/node_modules/
+/dist/
+/build/
+
+# Environment
+.env
+.env.local
+*.secret

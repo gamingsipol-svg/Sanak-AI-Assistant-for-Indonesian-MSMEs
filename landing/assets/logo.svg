@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Sanak — interlocking circles representing kinship/connection -->
+  <!-- Two overlapping rings: family/relation -->
+  <circle cx="24" cy="32" r="14" stroke="#B8421A" stroke-width="3.5" fill="none"/>
+  <circle cx="40" cy="32" r="14" stroke="#1F1A14" stroke-width="3.5" fill="none"/>
+  <!-- Center dot: spark/connection point -->
+  <circle cx="32" cy="32" r="2.5" fill="#B8421A"/>
+</svg>
